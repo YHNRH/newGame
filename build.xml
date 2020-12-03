@@ -4,14 +4,18 @@
         <javac destdir="compiled" srcdir="world/players/">
         </javac>
     </target>
-
     
-  <target name="build-package" depends = "build-package-pl">
+  <target name="build-package-world" depends = "build-package-pl">
         <javac destdir="compiled" srcdir="world/">
         </javac>
     </target>
 
-    <target name="build" depends="build-package">
+    <target name="build-package-controllers" depends = "build-package-world">
+        <javac destdir="compiled" srcdir="controllers/">
+        </javac>
+    </target>
+    
+    <target name="build" depends="build-package-controllers">
         <javac destdir="compiled" srcdir=".">
         </javac>
     </target>

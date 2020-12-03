@@ -17,6 +17,10 @@ class Entity
 	return pos;
     }
 
+    public void setPosition(int x, int y)
+    {
+	pos.move((int)(pos.getX()+x),(int) (pos.getY()+y));
+    }
     public int getWidth()
     {
 	return width;
