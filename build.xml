@@ -1,0 +1,18 @@
+<project>
+
+  <target name="build-package">
+        <javac destdir="compiled" srcdir="world/">
+        </javac>
+    </target>
+
+    <target name="build" depends="build-package">
+        <javac destdir="compiled" srcdir=".">
+        </javac>
+    </target>
+
+    <target name="run" depends="build">
+        <java classname="Game" classpath="compiled" fork="true">
+        </java>
+    </target>
+
+</project>
