@@ -11,6 +11,7 @@ public class World extends JPanel
     CopyOnWriteArrayList<Block> blocks;
     Player player;
     static int block_metric_x = -20;
+    int block_metric_y;
     public static Block kostyl_dlya_setki = new Block (Block.GROUND,0,0);
     
     public World (CopyOnWriteArrayList<Block> blocks, Player player)
@@ -22,11 +23,7 @@ public class World extends JPanel
     protected void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
-	for (int i = 20; i<=520; i+=20)
-	    g.drawLine(0,i,520,i);
-
-	// Сетка столбики
-
+       
 	block_metric_x = (int) kostyl_dlya_setki.getPosition().getX();
 	System.out.println(block_metric_x);
 	if(block_metric_x<-20)
@@ -34,7 +31,18 @@ public class World extends JPanel
 	    
 	if(block_metric_x>20)
 	    kostyl_dlya_setki.setPosition(-20,0);
+
+	block_metric_y = 1+(int) kostyl_dlya_setki.getPosition().getY();
+        
+	if(block_metric_y<-20)
+	    kostyl_dlya_setki.setPosition(0,20);
 	    
+	if(block_metric_y>20)
+	    kostyl_dlya_setki.setPosition(0,-20);
+	    
+	for (int i = block_metric_y; i<=block_metric_y+540; i+=20)
+	    g.drawLine(0,i,520,i);
+
 	for (int i = block_metric_x; i<=block_metric_x+540; i+=20)
 	    g.drawLine(i,0,i,520);
 

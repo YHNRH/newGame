@@ -27,7 +27,6 @@ public class Block
     public void setPosition(int x, int y)
     {
 	pos.move((int)(pos.getX()+x),(int) (pos.getY()+y));
-	System.out.println("DEBUG BLOCK");
     }
 
     public BufferedImage getImage()
