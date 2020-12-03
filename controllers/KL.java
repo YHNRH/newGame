@@ -8,6 +8,7 @@ public class KL implements KeyListener
 {
     CopyOnWriteArrayList<Block> blocks;
     Player player;
+    int lastKey = 0;
     public KL(CopyOnWriteArrayList<Block> blocks, Player player)
     {
 	this.blocks=blocks;
@@ -16,62 +17,28 @@ public class KL implements KeyListener
     public void keyPressed(KeyEvent e)
     {
 	int key = e.getKeyCode();
-	if(key == 32)
+	if(key == 32) // SPACE
 	    {
 		player.setJump(1);
 	    }
-		if(key == 68) //D
-		    {
-		int move=1;
-		for (Block b : blocks)
-		    if ((int) (player.getPosition().getY())>=(int)(b.getPosition().getY())+20
-			||
-			(int) (player.getPosition().getY())+player.getHeight()*20<=(int)(b.getPosition().getY())
-			||
-			(int) (player.getPosition().getX())>=(int) (b.getPosition().getX())+20)
-			
-			{}
-		    else
-			{
-			    if ((int) player.getPosition().getX()+player.getWidth()*20+1>=b.getPosition().getX())
-				move=0; //Нельзя ходить!
-			}
-
-		if(move==1)
-		    for (Block b : blocks)
-			{
-			    b.setPosition(-1,0);
-			}
+	if(key == 68) //D
+	    {
+		player.setMoveRight(1);
 	    }
 
 	if(key == 65) //A
 	    {
-		int move=1;
-		for (Block b : blocks)
-		    if ((int) (player.getPosition().getY())>=(int)(b.getPosition().getY())+20
-			||
-			(int) (player.getPosition().getY())+player.getHeight()*20<=(int)(b.getPosition().getY())
-			||
-			(int) (player.getPosition().getX())+player.getWidth()*20<=(int) (b.getPosition().getX()))
-			
-			{}
-		    else
-			{
-			    if ((int) player.getPosition().getX()-1<=b.getPosition().getX()+20)
-				move=0; //Нельзя ходить!
-			}
-
-		if(move==1)
-		    for (Block b : blocks)
-			{
-			    b.setPosition(1,0);
-			}
+		player.setMoveLeft(1);
 	    }
     }
 
     public void keyReleased(KeyEvent e)
     {
-
+        int key = e.getKeyCode();
+	if (key == 68) //D
+	    player.setMoveRight(0);
+	if (key == 65) //A
+	    player.setMoveLeft(0);
     }
 
     public void keyTyped(KeyEvent e)
