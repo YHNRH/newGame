@@ -20,7 +20,7 @@ public class Block
 
     public Point getPosition()
     {
-	return new Point(x*10,y*10);
+	return new Point(x*20,y*20);
     }
 
     public BufferedImage getImage()
