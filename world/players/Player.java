@@ -188,11 +188,13 @@ public class Player extends Entity
 
     public void setMoveRight(int a)
     {
+	if(moveLeft==0)
 	moveRight=a;
     }
 
     public void setMoveLeft(int a)
     {
+	if(moveRight==0)
 	moveLeft=a;
     }
     Thread t_jump = new Thread(()->{
