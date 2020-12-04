@@ -10,6 +10,10 @@ public class World extends JPanel
 {
     CopyOnWriteArrayList<Block> blocks;
     Player player;
+    Color c4ov = new Color(255,0,0,100);
+    
+    Color forDebug = new Color(0,255,0,100);
+    Color black = new Color(0,0,0,255);
     static int block_metric_x = -20;
     int block_metric_y;
     public static Block kostyl_dlya_setki = new Block (Block.GROUND,0,0);
@@ -23,7 +27,7 @@ public class World extends JPanel
     protected void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
-       
+	// Отрисовка сетки
 	block_metric_x = (int) kostyl_dlya_setki.getPosition().getX();
 	if(block_metric_x<-20)
 	    kostyl_dlya_setki.setPosition(20,0);
@@ -44,6 +48,27 @@ public class World extends JPanel
 
 	for (int i = block_metric_x; i<=block_metric_x+540; i+=20)
 	    g.drawLine(i,0,i,520);
+	// Отрисовка области взаимодействия
+	//g.setColor(forDebug);                                                                                                         DEBUG!!!!!
+	//System.out.println(block_metric_y);
+	
+	//g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY()-20,40,player.getHeight()*20+40);
+	
+	g.setColor(c4ov);
+
+	// Вправо
+	if(block_metric_x>=0)
+	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY(),40+block_metric_x,player.getHeight()*20);
+
+	if(block_metric_x<0)
+	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY(),40+20+block_metric_x,player.getHeight()*20);
+
+	//Влево
+	if(block_metric_x>0)
+	    g.fillRect((int)player.getPosition().getX()-40-(20-block_metric_x),(int) player.getPosition().getY(),(int) 100-block_metric_x,player.getHeight()*20);
+	
+	if(block_metric_x<=0)
+	    g.fillRect((int)player.getPosition().getX()-40+block_metric_x,(int) player.getPosition().getY(),(int) 80-block_metric_x,player.getHeight()*20);
 
 	for(Block b : blocks)
 	    {

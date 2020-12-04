@@ -24,15 +24,17 @@ public class ImgCol {
 	    {
 		int i = 0;
 		player_full = ImageIO.read(new File("res/pers.png"));
-		for (int stolb=292;stolb<421;stolb+=43)
+		for (int stolb=292;stolb<421;stolb+=36)
 		    {
 			int j=0;
-			for (int stroka = 101; stroka<239; stroka+=69)
+			for (int stroka = 93; stroka<231; stroka+=64)
 			    {
-				player[i][j] = player_full.getSubimage(stolb, stroka, 43, 69);
+				player[i][j] = player_full.getSubimage(stolb, stroka, 36, 64);
 				j++;
+				stroka+=10;
 		    }
 			i++;
+			stolb+=8;
 		    }
 	    }
 	catch (IOException e)

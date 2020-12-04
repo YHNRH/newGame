@@ -10,6 +10,8 @@ public class Player extends Entity
     
     BufferedImage[][] img;
     int fly;
+    int stepCount = 1;
+    int dir = 0;
     int jump;
     int vPrijke;
     int moveRight;
@@ -40,6 +42,7 @@ public class Player extends Entity
 						if (moveRight==1)
 						    {
 							int move=1;
+							dir = 1;
 							for (Block b : blocks)
 							    if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
 								||
@@ -58,6 +61,9 @@ public class Player extends Entity
 							    for (Block b : blocks)
 								{
 								    b.setPosition(-1,0);
+								    stepCount++;
+								    if(stepCount>=3)
+									stepCount=0;
 								}
 						    }
 						try
@@ -129,6 +135,7 @@ public class Player extends Entity
 					   {
 					       if (moveLeft==1)
 						   {
+						       dir = 0; 
 						       int move=1;
 						       for (Block b : blocks)
 							   if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
@@ -147,7 +154,10 @@ public class Player extends Entity
 						       if(move==1)
 							   for (Block b : blocks)
 							       {
+								   stepCount++;
 								   b.setPosition(1,0);
+								   if(stepCount>=3)
+								       stepCount=0;
 							       }
 						   }
 					       try
@@ -168,7 +178,7 @@ public class Player extends Entity
     }
     public BufferedImage getImage()
     {
-	return img[1][1];
+	return img[stepCount][dir];
     }
 
     public void setJump(int i)
