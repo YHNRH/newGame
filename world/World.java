@@ -25,14 +25,13 @@ public class World extends JPanel
 	super.paintComponent(g);
        
 	block_metric_x = (int) kostyl_dlya_setki.getPosition().getX();
-	System.out.println(block_metric_x);
 	if(block_metric_x<-20)
 	    kostyl_dlya_setki.setPosition(20,0);
 	    
 	if(block_metric_x>20)
 	    kostyl_dlya_setki.setPosition(-20,0);
 
-	block_metric_y = 1+(int) kostyl_dlya_setki.getPosition().getY();
+	block_metric_y = (int) kostyl_dlya_setki.getPosition().getY();
         
 	if(block_metric_y<-20)
 	    kostyl_dlya_setki.setPosition(0,20);

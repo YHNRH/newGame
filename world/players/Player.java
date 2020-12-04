@@ -34,39 +34,39 @@ public class Player extends Entity
     }
 
     Thread t_moveRight = new Thread(() ->
-				  {
-				      while (true)
-					  {
-					      if (moveRight==1)
-						  {
-					      int move=1;
-				      for (Block b : blocks)
-					  if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
-					      ||
-					      (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
-					      ||
-					      (int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
+				    {
+					while (true)
+					    {
+						if (moveRight==1)
+						    {
+							int move=1;
+							for (Block b : blocks)
+							    if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
+								||
+								(int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
+								||
+								(int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
 			
-					      {}
-					  else
-					      {
-						  if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
-						      move=0; //Нельзя ходить!
-					      }
+								{}
+							    else
+								{
+								    if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
+									move=0; //Нельзя ходить!
+								}
 
-				      if(move==1)
-					  for (Block b : blocks)
-					      {
-						  b.setPosition(-1,0);
-					      }
-						  }
-					      try
-						  {
-						      Thread.sleep(20);
-						  }
-					      catch (Exception ex) {}
-					  }
-				  });
+							if(move==1)
+							    for (Block b : blocks)
+								{
+								    b.setPosition(-1,0);
+								}
+						    }
+						try
+						    {
+							Thread.sleep(20);
+						    }
+						catch (Exception ex) {}
+					    }
+				    });
     Thread gravitation = new Thread(() ->
 				    {
 					double speed = 10;
@@ -130,32 +130,32 @@ public class Player extends Entity
 					       if (moveLeft==1)
 						   {
 						       int move=1;
-		for (Block b : blocks)
-		    if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
-			||
-			(int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
-			||
-			(int) (this.getPosition().getX())+this.getWidth()*20<=(int) (b.getPosition().getX()))
+						       for (Block b : blocks)
+							   if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
+							       ||
+							       (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
+							       ||
+							       (int) (this.getPosition().getX())+this.getWidth()*20<=(int) (b.getPosition().getX()))
 			
-			{}
-		    else
-			{
-			    if ((int) this.getPosition().getX()-1<=b.getPosition().getX()+20)
-				move=0; //Нельзя ходить!
-			}
+							       {}
+							   else
+							       {
+								   if ((int) this.getPosition().getX()-1<=b.getPosition().getX()+20)
+								       move=0; //Нельзя ходить!
+							       }
 
-		if(move==1)
-		    for (Block b : blocks)
-			{
-			    b.setPosition(1,0);
-			}
+						       if(move==1)
+							   for (Block b : blocks)
+							       {
+								   b.setPosition(1,0);
+							       }
 						   }
-					       	try
-						    {
-							Thread.sleep(20);
-						    }
-						catch (Exception e)
-						    {}
+					       try
+						   {
+						       Thread.sleep(20);
+						   }
+					       catch (Exception e)
+						   {}
 					   }
 				   });
     public int getFly()
