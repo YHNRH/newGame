@@ -25,6 +25,7 @@ public class Game {
 	win.setVisible(true);
 	win.setContentPane(world);
 	win.addKeyListener(new KL(blocks, player));
+	win.addMouseListener(new ML(blocks, player, world));
 
 
 	while(true)

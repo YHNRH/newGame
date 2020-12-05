@@ -15,7 +15,10 @@ public class Block
     public Block(int t,int x, int y)
     {
 	type = t;
-	pos = new Point(x*20,y*20);
+	if (World.getBlock_Metric_X()>=0)
+	    pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20);
+	else
+	    pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20);
     }
 
     public Point getPosition()

@@ -77,4 +77,9 @@ public class World extends JPanel
 	g.drawImage(player.getImage(),  (int) player.getPosition().getX(), (int) player.getPosition().getY(), player.getWidth()*20, player.getHeight()*20, null);
 	
     }
+
+    public static int getBlock_Metric_X()
+    {
+	return block_metric_x;
+    }
 }
