@@ -28,12 +28,6 @@ public class ML implements MouseListener
 	else
 	    blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(40+(World.getBlock_Metric_Y())))/20));
 	
-	System.out.println();
-	System.out.println("y="+y);
-	System.out.println("World.getBlock_Metric_Y()="+World.getBlock_Metric_Y());
-	System.out.println("World.getBlock_Metric_Y()%20="+World.getBlock_Metric_Y()%20);
-	System.out.println("(y-(0-(World.getBlock_Metric_Y())))/20=" + (y-(0+(World.getBlock_Metric_Y())))/20);
-	System.out.println();
     }
  
     public void mouseEntered(MouseEvent e) {

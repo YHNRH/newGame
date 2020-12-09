@@ -1,3 +1,4 @@
+
 package world.players;
 
 import world.Block;
@@ -11,9 +12,9 @@ public class Player extends Entity
     BufferedImage[][] img;
     int fly;
     int stepCount = 1;
-    int dir = 0;
+    int dir       = 0;
     int jump;
-    int vPrijke;
+    int vPrijke   = 0;
     int moveRight;
     int moveLeft;
     CopyOnWriteArrayList<Block> blocks;
@@ -47,18 +48,18 @@ public class Player extends Entity
 							for (Block b : blocks)
 							    {
 							        debug_counter++;
-							    if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
-								||
-								(int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
-								||
-								(int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
+								if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
+								    ||
+								    (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
+								    ||
+								    (int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
 			
-								{}
-							    else
-								{
-								    if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
-									move=0; //Нельзя ходить!
-								}
+								    {}
+								else
+								    {
+									if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
+									    move=0; //Нельзя ходить!
+								    }
 							    }
 							if(move==1)
 							    for (Block b : blocks)
@@ -78,59 +79,69 @@ public class Player extends Entity
 				    });
     Thread gravitation = new Thread(() ->
 				    {
-				        int speed = 9;
+				        int speed = 99;
 					int step;
 					while (true)
 					    {
+						System.out.println("JOPA");
+										    
 						int gonnaFly  = 1;
 						step = 0;
 						int final_step = 0;
 						if (vPrijke==0){
-						for (Block b : blocks)
-						    {
-							if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
-							   ||
-							   (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
-							   ) //Вне
-							    {}
-							else
-							    {
-								if((int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/100)
-								   //   ||
-								   // (int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/10)-1
-								   )
-									    {
-										gonnaFly= 0;
-										final_step=(int)(speed/100);
-									    }
-							
-							    }
-						    }
-						if (gonnaFly==0)
-						    {
-							for (Block b : blocks)
-							    b.setPosition(0,-final_step);
-							fly      = 0;
-							speed    = 9;
+						    for (Block b : blocks)
+							{
+							    if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
+							       ||
+							       (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
+							       ) //Вне
+								{}
+							    else
+								{
+								    step=speed/100;
+								    while(step>=0) //????????????????????????????
+									{
+									    if((int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-step
+									       //   ||
+									       // (int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/10)-1
+									       )
+										{
+										    gonnaFly= 0;
+										    final_step=step;
+										}
+									    step--;
+									}
+								}
+							}
+						    if (gonnaFly==0)
+							{
+							    for (Block b : blocks)
+								b.setPosition(0,-final_step);
+							    fly      = 0;
+							    speed    = 99;
 			
-						    }
-						if(gonnaFly==1)
-						    {
-							fly=1;
-							for (Block b : blocks)
-							    b.setPosition(0,-(int)(speed/100));
+							}
+						    if(gonnaFly==1)
+							{
+							    
+							    System.out.println(speed/100);
+							    fly=1;
+							    for (Block b : blocks)
+								b.setPosition(0,-(speed/100));
 							
-							if (speed<1000)
-							    speed+=3;
-						    }
+							    if (speed<1000)
+								speed+=2;
+							}
 						}
 					
 						try
 						    {
-							Thread.sleep(10);
+							Thread.sleep(20);
 						    }
 						catch (Exception e)
-						    {}}
+						    {
+						    }
+					    }
 				    });
 
     Thread t_moveLeft = new Thread(()->
@@ -193,13 +204,13 @@ public class Player extends Entity
     public void setMoveRight(int a)
     {
 	if(moveLeft==0)
-	moveRight=a;
+	    moveRight=a;
     }
 
     public void setMoveLeft(int a)
     {
 	if(moveRight==0)
-	moveLeft=a;
+	    moveLeft=a;
     }
     Thread t_jump = new Thread(()->{
 	    while (true)
@@ -227,7 +238,7 @@ public class Player extends Entity
 			}
 		    try
 			{
-			    Thread.sleep(30);
+			    Thread.sleep(20);
 			}
 		    catch(Exception ex)
 			{ex.printStackTrace();}

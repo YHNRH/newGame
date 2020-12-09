@@ -11,7 +11,7 @@ public class Game {
     {
 	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();
 	
-	blocks.add(new Block (Block.GROUND,20,15));
+	//	blocks.add(new Block (Block.GROUND,20,15));
 	
 	blocks.add(new Block (Block.GROUND,0,15));
 	for (int i=0;i<20;i++)
