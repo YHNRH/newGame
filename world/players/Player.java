@@ -39,11 +39,14 @@ public class Player extends Entity
 				    {
 					while (true)
 					    {
+						int debug_counter=0;
 						if (moveRight==1)
 						    {
 							int move=1;
 							dir = 1;
 							for (Block b : blocks)
+							    {
+							        debug_counter++;
 							    if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
 								||
 								(int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
@@ -56,7 +59,7 @@ public class Player extends Entity
 								    if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
 									move=0; //Нельзя ходить!
 								}
-
+							    }
 							if(move==1)
 							    for (Block b : blocks)
 								{
@@ -82,13 +85,16 @@ public class Player extends Entity
 						int gonnaFly  = 1;
 						step = 0;
 						int final_step = 0;
-						int gonnaStop = 0; 
+						int gonnaStop = 0;
+						if (vPrijke==0){
 						for (Block b : blocks)
 						    {
-			
+							
+							
 							if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
 							   ||
-							   (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())) //Вне
+							   (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
+							   ) //Вне
 							    {}
 							else
 							    {
@@ -119,8 +125,11 @@ public class Player extends Entity
 							if (speed<100)
 							    speed+=0.1;
 							for (Block b : blocks)
-							    b.setPosition(0,-(int)speed/10);
+							    b.setPosition(0,-(int)(speed/10));
 						    }
+						}
+						else
+						    System.out.println("DEBUG");
 						try
 						    {
 							Thread.sleep(10);
