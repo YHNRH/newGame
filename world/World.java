@@ -15,7 +15,7 @@ public class World extends JPanel
     Color forDebug = new Color(0,255,0,100);
     Color black = new Color(0,0,0,255);
     static int block_metric_x = -20;
-    int block_metric_y;
+    static int block_metric_y;
     public static Block kostyl_dlya_setki = new Block (Block.GROUND,0,0);
     
     public World (CopyOnWriteArrayList<Block> blocks, Player player)
@@ -37,11 +37,11 @@ public class World extends JPanel
 
 	block_metric_y = (int) kostyl_dlya_setki.getPosition().getY();
         
-	if(block_metric_y<-100)
-	    kostyl_dlya_setki.setPosition(0,100);
+	if(block_metric_y<-20)
+	    kostyl_dlya_setki.setPosition(0,20);
 	    
-	if(block_metric_y>100)
-	    kostyl_dlya_setki.setPosition(0,-100);
+	if(block_metric_y>20)
+	    kostyl_dlya_setki.setPosition(0,-20);
 	    
 	for (int i = block_metric_y; i<=block_metric_y+540; i+=20)
 	    g.drawLine(0,i,520,i);
@@ -50,7 +50,7 @@ public class World extends JPanel
 	    g.drawLine(i,0,i,520);
 	// Отрисовка области взаимодействия
 	//g.setColor(forDebug);                                                                                                         DEBUG!!!!!
-	System.out.println(block_metric_y);
+	//System.out.println(block_metric_y);
 	
 	//g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY()-20,40,player.getHeight()*20+40);
 	
@@ -81,5 +81,10 @@ public class World extends JPanel
     public static int getBlock_Metric_X()
     {
 	return block_metric_x;
+    }
+
+    public static int getBlock_Metric_Y()
+    {
+	return block_metric_y;
     }
 }

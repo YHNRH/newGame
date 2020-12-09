@@ -16,7 +16,8 @@ public class Block
     {
 	type = t;
 	//	if (World.getBlock_Metric_X()>=0)
-	    pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20);
+	pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20+World.getBlock_Metric_Y()%20-20);
+	System.out.println("y*20+World.getBlock_Metric_Y()%20-20=" + (y*20-World.getBlock_Metric_Y()));
 	//	else
 	    //	    pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20);
     }

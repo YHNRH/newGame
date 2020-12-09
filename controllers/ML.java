@@ -22,7 +22,18 @@ public class ML implements MouseListener
     public void mouseClicked(MouseEvent e) {
 	int x = e.getX();
 	int y = e.getY();
-	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2));
+	//	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2)); РАБОТАЛО
+	if (World.getBlock_Metric_Y()>=0)
+	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(20+(World.getBlock_Metric_Y())))/20));
+	else
+	    blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(40+(World.getBlock_Metric_Y())))/20));
+	
+	System.out.println();
+	System.out.println("y="+y);
+	System.out.println("World.getBlock_Metric_Y()="+World.getBlock_Metric_Y());
+	System.out.println("World.getBlock_Metric_Y()%20="+World.getBlock_Metric_Y()%20);
+	System.out.println("(y-(0-(World.getBlock_Metric_Y())))/20=" + (y-(0+(World.getBlock_Metric_Y())))/20);
+	System.out.println();
     }
  
     public void mouseEntered(MouseEvent e) {
