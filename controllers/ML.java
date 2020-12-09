@@ -22,10 +22,6 @@ public class ML implements MouseListener
     public void mouseClicked(MouseEvent e) {
 	int x = e.getX();
 	int y = e.getY();
-	System.out.println(x + " " + y);
-	System.out.println((x)/20*20+" "+(y)/20*20);
-	System.out.println(world.getBlock_Metric_X());
-	System.out.println();
 	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2));
     }
  
