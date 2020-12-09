@@ -78,7 +78,7 @@ public class Player extends Entity
 				    });
     Thread gravitation = new Thread(() ->
 				    {
-					double speed = 10;
+					double speed = 9;
 					int step;
 					while (true)
 					    {
@@ -89,8 +89,6 @@ public class Player extends Entity
 						if (vPrijke==0){
 						for (Block b : blocks)
 						    {
-							
-							
 							if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
 							   ||
 							   (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
@@ -98,25 +96,21 @@ public class Player extends Entity
 							    {}
 							else
 							    {
-								while(step<=10)
-								    {
-									if((int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-step)
+								if((int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/10))
 									    {
 										gonnaStop= 1;
-										final_step=step;
+										final_step=(int)(speed/10);
 									    }
-									step++;
-								    }
-			
+							
 							    }
 						    }
-						if (gonnaStop==1 && vPrijke==0)
+						if (gonnaStop==1)
 						    {
 							for (Block b : blocks)
 							    b.setPosition(0,-final_step);
 							gonnaFly = 0;
 							fly      = 0;
-							speed    = 10;
+							speed    = 9;
 			
 						    }
 						if(gonnaFly==1)
