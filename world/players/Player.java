@@ -17,6 +17,7 @@ public class Player extends Entity
     int vPrijke   = 0;
     int moveRight;
     int moveLeft;
+    int ostanovka_v_prijke; 
     CopyOnWriteArrayList<Block> blocks;
     public Player(Point pos,
 		  BufferedImage[][] img,
@@ -221,10 +222,42 @@ public class Player extends Entity
 			    vPrijke = 1;
 			    this.setFly(1);
 			    int co = 30;
+			    int step;
+			    ostanovka_v_prijke = 0;
+			    int final_step = 0;
 			    while(co/7!=0)
 				{
 				    for(Block b : blocks)
-					b.setPosition(0,co/5);
+					{
+					    step=0;
+					    if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
+					       ||
+					       (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
+					       ) //Вне
+						{}
+					    else
+						{
+					    
+						    while(step<=co/7) //????????????????????????????
+							{
+							    if((int) (pos.getY())==(int) (b.getPosition().getY())+20+step
+							       //   ||
+							       // (int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/10)-1
+							       )
+								{
+								    ostanovka_v_prijke = 1;
+								    final_step=step;
+								}
+							    step++;
+							}
+						}
+					}
+				    if (ostanovka_v_prijke==0)
+					for(Block b : blocks)
+					    b.setPosition(0,co/7);
+				    else
+					for(Block b : blocks)
+					    b.setPosition(0,final_step);
 				    try
 					{
 					    Thread.sleep(10);

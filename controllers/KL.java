@@ -39,6 +39,8 @@ public class KL implements KeyListener
 	    player.setMoveRight(0);
 	if (key == 65) //A
 	    player.setMoveLeft(0);
+	if(key == 32) // SPACE
+	    player.setJump(0);
     }
 
     public void keyTyped(KeyEvent e)
