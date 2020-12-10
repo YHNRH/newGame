@@ -6,7 +6,9 @@ import controllers.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 public class Game {
 
-    
+    // TODO
+    // Установка блоков не в друг друга
+    // 
     public static void main(String[] args)
     {
 	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();

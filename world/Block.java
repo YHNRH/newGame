@@ -33,4 +33,27 @@ public class Block
     {
 	return ImgCol.ground;
     }
+
+    public int getHeight()
+    {
+	switch (type)
+	    {
+	    case GROUND:
+		return 20;
+	    default:
+		return 20;
+	    }
+    }
+
+    public int getWidth()
+    {
+	switch (type)
+	    {
+	    case GROUND:
+		return 20;
+	    default:
+		return 20;
+	
+	    }
+    }
 }

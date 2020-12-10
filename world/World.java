@@ -49,11 +49,7 @@ public class World extends JPanel
 	for (int i = block_metric_x; i<=block_metric_x+540; i+=20)
 	    g.drawLine(i,0,i,520);
 	// Отрисовка области взаимодействия
-	//g.setColor(forDebug);                                                                                                         DEBUG!!!!!
-	//System.out.println(block_metric_y);
-	
-	//g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY()-20,40,player.getHeight()*20+40);
-	
+
 	g.setColor(c4ov);
 
 	// Вправо

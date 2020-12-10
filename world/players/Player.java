@@ -83,9 +83,7 @@ public class Player extends Entity
 				        int speed = 99;
 					int step;
 					while (true)
-					    {
-						System.out.println("JOPA");
-										    
+					    {			    
 						int gonnaFly  = 1;
 						step = 0;
 						int final_step = 0;
@@ -124,8 +122,6 @@ public class Player extends Entity
 							}
 						    if(gonnaFly==1)
 							{
-							    
-							    System.out.println(speed/100);
 							    fly=1;
 							    for (Block b : blocks)
 								b.setPosition(0,-(speed/100));
