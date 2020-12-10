@@ -54,22 +54,25 @@ public class World extends JPanel
 
 	// Вправо
 	if(block_metric_x>=0)
-	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY(),40+block_metric_x,player.getHeight()*20);
+	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY()-40+block_metric_y,60+block_metric_x,player.getHeight()*20+120);
 
 	if(block_metric_x<0)
-	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY(),40+20+block_metric_x,player.getHeight()*20);
+	g.fillRect((int)player.getPosition().getX()+player.getWidth()*20,(int) player.getPosition().getY()-40+block_metric_y,60+20+block_metric_x,player.getHeight()*20+120);
 
 	//Влево
-	if(block_metric_x>0)
-	    g.fillRect((int)player.getPosition().getX()-40-(20-block_metric_x),(int) player.getPosition().getY(),(int) 100-block_metric_x,player.getHeight()*20);
+	if(block_metric_x>=0)
+	    g.fillRect((int)player.getPosition().getX()-40-(20-block_metric_x),(int) player.getPosition().getY()-40+block_metric_y,(int) 100-block_metric_x,player.getHeight()*20+120);
 	
-	if(block_metric_x<=0)
-	    g.fillRect((int)player.getPosition().getX()-40+block_metric_x,(int) player.getPosition().getY(),(int) 80-block_metric_x,player.getHeight()*20);
+	if(block_metric_x<0)
+	    g.fillRect((int)player.getPosition().getX()-40+block_metric_x,(int) player.getPosition().getY()-40+block_metric_y,(int) 80-block_metric_x,player.getHeight()*20+120);
 
+	// Отрисовка блоков
+	
 	for(Block b : blocks)
 	    {
 		g.drawImage(b.getImage(), (int) b.getPosition().getX(), (int) b.getPosition().getY(), 20, 20, null);
 	    }
+	// Отрисовка персонажей
 	g.drawImage(player.getImage(),  (int) player.getPosition().getX(), (int) player.getPosition().getY(), player.getWidth()*20, player.getHeight()*20, null);
 	
     }
