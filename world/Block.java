@@ -31,6 +31,11 @@ public class Block
 	pos.move((int)(pos.getX()+x),(int) (pos.getY()+y));
     }
 
+    public void setPositionToNol() // По игрику
+    {
+	pos.move((int)pos.getX(),0);
+    }
+
     public BufferedImage getImage()
     {
 	return ImgCol.ground;

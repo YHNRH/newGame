@@ -20,19 +20,40 @@ public class ML implements MouseListener
     }
 
     public void mouseClicked(MouseEvent e) {
-	int canPutBlock = 1;
+	int canPutBlock = 0;
 	int x = e.getX();
 	int y = e.getY();
 
 	//	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2)); РАБОТАЛО
 	// Проверка на наличие блоков рядом
-	/*	for (Block b : blocks)
+		for (Block b : blocks)
 	    {
 		if (World.getBlock_Metric_Y()>=0)
-		    {if(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20-1==(int)b.getPosition().getX()+b.getWidth()
-		       || ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20+1==(int)b.getPosition().getX()
-		       || ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20-1==(int)b.getPosition().getY()+b.getHeight()
-		       || ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20+1==(int)b.getPosition().getY()
+		    {
+			if(
+			   (
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()+b.getWidth()
+			    &&
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()
+			    )// Справа
+			   ||
+			   (
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20==(int)b.getPosition().getX()
+			    &&
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()			    
+			    )
+			   ||
+			   (
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()+b.getHeight()
+			    &&
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			   )
+		       ||
+			   (
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20==(int)b.getPosition().getY()
+			    &&
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			   )
 		       )
 			{
 			    canPutBlock=1;
@@ -41,10 +62,30 @@ public class ML implements MouseListener
 		    }
 		else
 		    {
-			if(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20-1==(int)b.getPosition().getX()+b.getWidth()
-			   || ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20+1==(int)b.getPosition().getX()
-			   || ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20-1==(int)b.getPosition().getY()+b.getHeight()
-			   ||  ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20+1==(int)b.getPosition().getY()
+			if(
+			   (
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()+b.getWidth()
+			    &&
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()
+			    )// Справа
+			   ||
+			   (
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20==(int)b.getPosition().getX()
+			    &&
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()			    
+			    )
+			   ||
+			   (
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()+b.getHeight()
+			    &&
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			   )
+		       ||
+			   (
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20==(int)b.getPosition().getY()
+			    &&
+			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			   )
 			   )
 			{
 			    canPutBlock=1;
@@ -52,7 +93,7 @@ public class ML implements MouseListener
 			}
 		    }
 	    }
-	*/
+	
 	// Проверка с блоками
 	for (Block b : blocks)
 	    {
@@ -109,6 +150,8 @@ public class ML implements MouseListener
 	    {System.out.println("Я не могу поставить блок");}
 		РАБОТАЛО*/
 		System.out.println("x="+x+" y="+y);
+		System.out.println(World.getBlock_Metric_Y());
+		System.out.println("real x= "+(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20));
 		if (canPutBlock==1)
 		    {
 			if (World.getBlock_Metric_Y()>=0)

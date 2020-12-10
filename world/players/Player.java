@@ -2,6 +2,7 @@
 package world.players;
 
 import world.Block;
+import world.World;
 import java.awt.image.*;
 import java.awt.Point;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -41,15 +42,13 @@ public class Player extends Entity
 				    {
 					while (true)
 					    {
-						int debug_counter=0;
 						if (moveRight==1)
 						    {
 							int move=1;
 							dir = 1;
 							for (Block b : blocks)
 							    {
-							        debug_counter++;
-								if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
+					        		if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
 								    ||
 								    (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
 								    ||
@@ -101,9 +100,7 @@ public class Player extends Entity
 								    while(step>=0) //????????????????????????????
 									{
 									    if((int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-step
-									       //   ||
-									       // (int) (pos.getY())+(height*20)==(int) (b.getPosition().getY())-(int)(speed/10)-1
-									       )
+				        				       )
 										{
 										    gonnaFly= 0;
 										    final_step=step;
@@ -118,6 +115,7 @@ public class Player extends Entity
 								b.setPosition(0,-final_step);
 							    fly      = 0;
 							    speed    = 99;
+							    World.kostyl_dlya_setki.setPositionToNol();
 			
 							}
 						    if(gonnaFly==1)
