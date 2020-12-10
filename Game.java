@@ -13,19 +13,23 @@ public class Game {
     {
 	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();
 	
-	//	blocks.add(new Block (Block.GROUND,20,15));
+	blocks.add(new Block (Block.GROUND,200,1340));
 	
-	blocks.add(new Block (Block.GROUND,0,15));
-	for (int i=0;i<20;i++)
+	blocks.add(new Block (Block.GROUND,0,1340));
+	for (int i=0;i<300;i+=20)
 	    {
-		blocks.add(new Block (Block.GROUND,i,16));
+		blocks.add(new Block (Block.GROUND,i,1360));
 	    }
-	Player player = new Player(new Point (240,240), ImgCol.player,2,3, blocks);
 	JFrame win = new JFrame();
-	World world = new World(blocks, player);
 	win.setSize(520, 558);
-	win.setVisible(true);
+	
+	
+	Player player = new Player(new Point (240,240), ImgCol.player,2,3, blocks);
+
+	World world = new World(blocks, player);
 	win.setContentPane(world);
+	
+	win.setVisible(true);
 	win.addKeyListener(new KL(blocks, player));
 	win.addMouseListener(new ML(blocks, player, world));
 

@@ -15,7 +15,9 @@ public class Block
     public Block(int t,int x, int y)
     {
 	type = t;
-	pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20+World.getBlock_Metric_Y()%20-20);
+	//pos = new Point(x*20+World.getBlock_Metric_X()-20,y*20+World.getBlock_Metric_Y()%20-20);
+	// Работало
+	pos = new Point(x,y);
     }
 
     public Point getPosition()
