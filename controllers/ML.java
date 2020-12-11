@@ -26,7 +26,7 @@ public class ML implements MouseListener
 
 	//	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2)); РАБОТАЛО
 	// Проверка на наличие блоков рядом
-		for (Block b : blocks)
+	for (Block b : blocks)
 	    {
 		if (World.getBlock_Metric_Y()>=0)
 		    {
@@ -34,63 +34,63 @@ public class ML implements MouseListener
 			   (
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()+b.getWidth()
 			    &&
-			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20==(int)b.getPosition().getY()
 			    )// Справа
 			   ||
 			   (
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20==(int)b.getPosition().getX()
 			    &&
-			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()			    
-			    )
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20==(int)b.getPosition().getY()			    
+			    ) // Слева
 			   ||
 			   (
-			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()+b.getHeight()
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20+20==(int)b.getPosition().getY()//+b.getHeight()
 			    &&
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
-			   )
-		       ||
+			    ) // Ставишь выше другого блока
+			   ||
 			   (
-			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20==(int)b.getPosition().getY()
+			    ((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20==(int)b.getPosition().getY()
 			    &&
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			    ) // Ставишь ниже другого блока
 			   )
-		       )
-			{
-			    canPutBlock=1;
-			    System.out.println("Есть блок рядом");
-			}
+			    {
+				canPutBlock=1;
+				System.out.println("Есть блок рядом");
+			    }
 		    }
 		else
 		    {
-			if(
+		        if(
 			   (
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()+b.getWidth()
 			    &&
-			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20==(int)b.getPosition().getY()
 			    )// Справа
 			   ||
 			   (
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20+20==(int)b.getPosition().getX()
 			    &&
-			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()			    
-			    )
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20==(int)b.getPosition().getY()			    
+			    ) // Слева
 			   ||
 			   (
-			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20==(int)b.getPosition().getY()+b.getHeight()
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20+20==(int)b.getPosition().getY()//+b.getHeight()
 			    &&
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
-			   )
-		       ||
+			    ) // Ставишь выше другого блока
+			   ||
 			   (
-			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20+20==(int)b.getPosition().getY()
+			    ((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20==(int)b.getPosition().getY()
 			    &&
 			    ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20==(int)b.getPosition().getX()
+			    ) // Ставишь ниже другого блока
 			   )
-			   )
-			{
-			    canPutBlock=1;
-			    System.out.println("Есть блок рядом");
-			}
+			    {
+				canPutBlock=1;
+				System.out.println("Есть блок рядом");
+			    }
 		    }
 	    }
 	
@@ -99,11 +99,14 @@ public class ML implements MouseListener
 	    {
 		if (x>=(int) b.getPosition().getX()
 		    && x<= (int) b.getPosition().getX()+b.getWidth()
-		    && y >= (int) b.getPosition().getY()+40
+		    && y >= (int) b.getPosition().getY()
 		    //Я не понимаю почему это так, но работает корректно только с +40. Возможно это изза верхней рамки окна
-		    && y <= (int) b.getPosition().getY()+b.getHeight()+40
+		    && y <= (int) b.getPosition().getY()+b.getHeight()
 		    )
-		    canPutBlock=0;
+		    {
+			System.out.println("Попытка поставить в блок");
+			canPutBlock=0;
+		    }
 		
 	    }
 	//Проверка с зоной взаимодействия
@@ -111,61 +114,66 @@ public class ML implements MouseListener
 	if (World.getBlock_Metric_X()>=0)
 	    if(x>(int)player.getPosition().getX()+player.getWidth()*20+60+World.getBlock_Metric_X()
 	       || x< (int)player.getPosition().getX()-40-(20-World.getBlock_Metric_X())
-	       || y-40< (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
-	       || y-40> (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
+	       || y< (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
+	       || y> (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
 	       )
+		{
+		    System.out.println("Вне зоны взаимодействия");
 		    canPutBlock=0;
-
+		}
 			
 	if (World.getBlock_Metric_X()<0)
 	    if(x>(int)player.getPosition().getX()+player.getWidth()*20+60+20+World.getBlock_Metric_X()
 	       || x < (int)player.getPosition().getX()-40+World.getBlock_Metric_X()
-	       || y-40 < (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
-	       || y-40 > (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
+	       || y < (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
+	       || y > (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
 	       )
-		canPutBlock=0;
+		{
+		    System.out.println("Вне зоны взаимодействия");
+		    canPutBlock=0;
+		}
 		
 	
 	//Проверка с плеером
 	
-		if (x>=(int) player.getPosition().getX()
-		    && x<= (int) player.getPosition().getX()+player.getWidth()*20
-		    && y >= (int) player.getPosition().getY()+40
-		    //Я не понимаю почему это так, но работает корректно только с +40. Возможно это изза верхней рамки окна
-		    && y <= (int) player.getPosition().getY()+player.getHeight()*20+40
-		    )
-		    {
-			canPutBlock=0;
-			System.out.println("Попытка установить в плеера");
-		    }
+	if (x>=(int) player.getPosition().getX()
+	    && x<= (int) player.getPosition().getX()+player.getWidth()*20
+	    && y >= (int) player.getPosition().getY()
+	    //Я не понимаю почему это так, но работает корректно только с +40. Возможно это изза верхней рамки окна
+	    && y <= (int) player.getPosition().getY()+player.getHeight()*20
+	    )
+	    {
+		canPutBlock=0;
+		System.out.println("Попытка установить в плеера");
+	    }
 	
 	
-		/*if (canPutBlock==1){
-	    if (World.getBlock_Metric_Y()>=0)
-		blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(20+(World.getBlock_Metric_Y())))/20));
-	    else
-		blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(40+(World.getBlock_Metric_Y())))/20));
-	}
-	else
-	    {System.out.println("Я не могу поставить блок");}
-		РАБОТАЛО*/
-		System.out.println("x="+x+" y="+y);
-		System.out.println(World.getBlock_Metric_Y());
-		System.out.println("real x= "+(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20));
-		if (canPutBlock==1)
+	/*if (canPutBlock==1){
+	  if (World.getBlock_Metric_Y()>=0)
+	  blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(20+(World.getBlock_Metric_Y())))/20));
+	  else
+	  blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y-(40+(World.getBlock_Metric_Y())))/20));
+	  }
+	  else
+	  {System.out.println("Я не могу поставить блок");}
+	  РАБОТАЛО*/
+	System.out.println("x="+x+" y="+y);
+	System.out.println(World.getBlock_Metric_Y());
+	System.out.println("real x= "+(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20));
+	if (canPutBlock==1)
+	    {
+		if (World.getBlock_Metric_Y()>=0)
 		    {
-			if (World.getBlock_Metric_Y()>=0)
-			    {
-				blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
-			    }
-			else
-			    {
-				blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
-				
-			    }
+			blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
 		    }
 		else
-		    {System.out.println("Я не могу поставить блок");}
+		    {
+			blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
+				
+		    }
+	    }
+	else
+	    {System.out.println("Я не могу поставить блок");}
 		
 		
 		

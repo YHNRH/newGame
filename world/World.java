@@ -3,14 +3,17 @@ package world;
 
 import javax.swing.*;
 import java.awt.*;
+import world.interfac.Cell;
 import java.util.concurrent.CopyOnWriteArrayList;
 import world.players.Player;
 
 public class World extends JPanel
 {
     CopyOnWriteArrayList<Block> blocks;
+    CopyOnWriteArrayList<Cell> inventory;
     Player player;
-    Color c4ov = new Color(255,0,0,100);
+    Color red = new Color(255,0,0,100);
+    Color blue = new Color(0,0,255,100);
     
     Color forDebug = new Color(0,255,0,100);
     Color black = new Color(0,0,0,255);
@@ -18,39 +21,50 @@ public class World extends JPanel
     static int block_metric_y;
     public static Block kostyl_dlya_setki = new Block (Block.GROUND,0,0);
     
-    public World (CopyOnWriteArrayList<Block> blocks, Player player)
+    public World (CopyOnWriteArrayList<Block> blocks, CopyOnWriteArrayList<Cell> inventory, Player player)
     {
 	this.blocks=blocks;
 	this.player=player;
+	this.inventory=inventory;
 	this.blocks.add(kostyl_dlya_setki);
     }
     protected void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
 	// Отрисовка сетки
-	block_metric_x = (int) kostyl_dlya_setki.getPosition().getX();
 	if(block_metric_x<-20)
 	    kostyl_dlya_setki.setPosition(20,0);
 	    
 	if(block_metric_x>20)
 	    kostyl_dlya_setki.setPosition(-20,0);
 
-	block_metric_y = (int) kostyl_dlya_setki.getPosition().getY();
-        
 	if(block_metric_y<-20)
 	    kostyl_dlya_setki.setPosition(0,20);
 	    
 	if(block_metric_y>20)
 	    kostyl_dlya_setki.setPosition(0,-20);
-	    
-	for (int i = block_metric_y; i<=block_metric_y+540; i+=20)
-	    g.drawLine(0,i,520,i);
+	
+	block_metric_x = (int) kostyl_dlya_setki.getPosition().getX();
+	
+	block_metric_y = (int) kostyl_dlya_setki.getPosition().getY();
+        for (int i = block_metric_y; i<=block_metric_y+540; i+=20)
+	    g.drawLine((int)player.getPosition().getX()/2,(int)player.getPosition().getY()/2+i-10,(int)player.getPosition().getX()+(int)player.getPosition().getX()/2,(int)player.getPosition().getY()/2+i-10);
 
 	for (int i = block_metric_x; i<=block_metric_x+540; i+=20)
-	    g.drawLine(i,0,i,520);
+	    g.drawLine((int)player.getPosition().getX()/2+(int)player.getPosition().getX()/4+i,(int)player.getPosition().getY()/2-50,
+		       (int)player.getPosition().getX()/2+(int)player.getPosition().getX()/4+i,
+		       (int)player.getPosition().getY()/2+(int)player.getPosition().getY()+50);
+
+
+	// Отрисовка панели инвентaря
+	g.setColor(blue);
+	for(Cell cell : inventory)
+	    {
+		g.fillRect(cell.getX(),cell.getY(),40,40);
+	    }
 	// Отрисовка области взаимодействия
 
-	g.setColor(c4ov);
+	g.setColor(red);
 
 	// Вправо
 	if(block_metric_x>=0)
