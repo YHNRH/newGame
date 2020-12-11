@@ -8,7 +8,7 @@ import java.awt.Point;
 public class Block
 {
     
-    public static final int GROUND = 0;
+    public static final int GROUND = 1;
     
     int type;
     Point pos;

@@ -14,6 +14,7 @@ public class World extends JPanel
     Player player;
     Color red = new Color(255,0,0,100);
     Color blue = new Color(0,0,255,100);
+    Color yellow = new Color(255,255,0,100);
     
     Color forDebug = new Color(0,255,0,100);
     Color black = new Color(0,0,0,255);
@@ -60,7 +61,21 @@ public class World extends JPanel
 	g.setColor(blue);
 	for(Cell cell : inventory)
 	    {
-		g.fillRect(cell.getX(),cell.getY(),40,40);
+		if(cell.getChosen()==true)
+		    {
+			g.setColor(yellow);
+		    }
+		g.fillRect(cell.getX(),cell.getY(),cell.getWidth(),cell.getHeight());
+		g.setColor(blue);
+			
+		if(cell.getItem()>0)
+		    {
+			g.drawImage(cell.getItemImage(),
+				    cell.getX()+5,
+				    cell.getY()+5,
+				    cell.getWidth()/4*3,
+				    cell.getHeight()/4*3, null );
+		    }
 	    }
 	// Отрисовка области взаимодействия
 

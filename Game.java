@@ -21,7 +21,12 @@ public class Game {
 
 	for (int i = 0; i<10; i++)
 	    {
-		inventory.add(new Cell(60+i*60,40,0));
+		Cell cell = new Cell(60+i*60,40,0);
+		if(i==0)
+		    cell.setItem(1);
+		if(i==1)
+		    cell.setItem(50);
+		inventory.add(cell);
 	    }
 	
 	blocks.add(new Block (Block.GROUND,200,1340));
@@ -48,7 +53,7 @@ public class Game {
 	win.setVisible(true);
 	
 	win.addKeyListener(new KL(blocks, player));
-	win.addMouseListener(new ML(blocks, player, world));
+	win.addMouseListener(new ML(blocks, inventory, player, world));
 
 
 	while(true)

@@ -4,19 +4,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import world.World;
 import world.players.Player;
+import world.interfac.Cell;
 import world.Block;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ML implements MouseListener
 {
     CopyOnWriteArrayList<Block> blocks;
+    CopyOnWriteArrayList<Cell> inventory;
     Player player;
     World world;
-    public ML(CopyOnWriteArrayList<Block> blocks, Player player, World world)
+    public ML(CopyOnWriteArrayList<Block> blocks,CopyOnWriteArrayList<Cell> inventory, Player player, World world)
     {
 	this.blocks=blocks;
 	this.player=player;
 	this.world = world;
+	this.inventory=inventory;
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -25,8 +28,43 @@ public class ML implements MouseListener
 	int y = e.getY();
 
 	//	blocks.add(new Block(Block.GROUND, (x+(20-World.getBlock_Metric_X()))/20,(y)/20-2)); РАБОТАЛО
-	// Проверка на наличие блоков рядом
-	for (Block b : blocks)
+
+	// Пороверка на выбор предметов
+
+	for (Cell cell : inventory)
+	    {
+			if (
+			    x>= cell.getX()
+			    && x<=  cell.getX()+cell.getWidth()
+			    && y >=  cell.getY()
+			    && y <=  cell.getY()+cell.getHeight()
+			    )
+			    {
+				System.out.println("Выбрана ячейка");
+				if(cell.getChosen()==true)
+				    {
+					cell.setChosen(false);
+				    }
+				else
+				    {
+					for (Cell cell1 : inventory)
+					    {
+						cell1.setChosen(false);
+					    }
+					cell.setChosen(true);
+					player.setItem(cell.getItem());
+				    }
+				
+			    }
+	    }
+	
+
+
+	if(player.getItem()>0 && player.getItem()<50) // Установка блоков
+	    {
+			// Проверка на наличие блоков рядом
+
+		for (Block b : blocks)
 	    {
 		if (World.getBlock_Metric_Y()>=0)
 		    {
@@ -164,17 +202,38 @@ public class ML implements MouseListener
 	    {
 		if (World.getBlock_Metric_Y()>=0)
 		    {
-			blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
+			blocks.add(new Block(player.getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
 		    }
 		else
 		    {
-			blocks.add(new Block(Block.GROUND, ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
+			blocks.add(new Block(player.getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
 				
 		    }
 	    }
 	else
 	    {System.out.println("Я не могу поставить блок");}
+	    }
+	else if(player.getItem()>=50 && player.getItem()<60) // Разбивать блоки
+	    {
+	        
+		for (Block b : blocks)
+		    {
+			if (
+			    x>=(int) b.getPosition().getX()
+			    && x<= (int) b.getPosition().getX()+b.getWidth()
+			    && y >= (int) b.getPosition().getY()
+			    && y <= (int) b.getPosition().getY()+b.getHeight()
+			    )
+			    {
+				System.out.println("Блок удален");
+				blocks.remove(b);
+			        
+			    }
+			
+			
+		    }
 		
+	    }
 		
 		
     }

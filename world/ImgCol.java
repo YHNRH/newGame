@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class ImgCol {
     public static final BufferedImage ground;
+    public static final BufferedImage picaxe;
     public static final BufferedImage[][] player = new BufferedImage[3][2];
 
     static {
@@ -19,6 +20,17 @@ public class ImgCol {
 		  _ground = null;
 	      }
 	ground = _ground;
+
+	BufferedImage _picaxe;
+	try {
+	    _picaxe = ImageIO.read(new File("res/picaxe.png"));
+	} catch (IOException e)
+	    {
+		  e.printStackTrace();
+		  _picaxe = null;
+	      }
+	picaxe = _picaxe;
+	
 	BufferedImage player_full;
 	try
 	    {

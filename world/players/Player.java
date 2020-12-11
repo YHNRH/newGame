@@ -17,6 +17,7 @@ public class Player extends Entity
     int jump;
     int vPrijke   = 0;
     int moveRight;
+    int item = 0;
     int moveLeft;
     int ostanovka_v_prijke; 
     CopyOnWriteArrayList<Block> blocks;
@@ -194,6 +195,16 @@ public class Player extends Entity
     public void setJump(int i)
     {
 	jump=i;
+    }
+
+    public int getItem()
+    {
+	return item;
+    }
+
+    public void setItem(int item)
+    {
+	this.item=item;
     }
 
     public void setMoveRight(int a)
