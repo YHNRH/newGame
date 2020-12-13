@@ -3,6 +3,7 @@ package controllers;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import world.World;
+import world.Drop;
 import world.players.Player;
 import world.interfac.Cell;
 import world.Block;
@@ -12,18 +13,21 @@ public class ML implements MouseListener
 {
     CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Cell> inventory;
+    CopyOnWriteArrayList<Drop> drops;
     Player player;
     World world;
-    public ML(CopyOnWriteArrayList<Block> blocks,CopyOnWriteArrayList<Cell> inventory, Player player, World world)
+    public ML(CopyOnWriteArrayList<Block> blocks,CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player, World world)
     {
 	this.blocks=blocks;
 	this.player=player;
+	this.drops=drops;
 	this.world = world;
 	this.inventory=inventory;
     }
 
     public void mouseClicked(MouseEvent e) {
 	int canPutBlock = 0;
+	int canRemoveBlock = 1;
 	int x = e.getX();
 	int y = e.getY();
 
@@ -52,7 +56,7 @@ public class ML implements MouseListener
 						cell1.setChosen(false);
 					    }
 					cell.setChosen(true);
-					player.setItem(cell.getItem());
+					player.setItem(cell);
 				    }
 				
 			    }
@@ -60,7 +64,7 @@ public class ML implements MouseListener
 	
 
 
-	if(player.getItem()>0 && player.getItem()<50) // Установка блоков
+	if(player.getItem().getItem()>0 && player.getItem().getItem()<50) // Установка блоков
 	    {
 			// Проверка на наличие блоков рядом
 
@@ -195,39 +199,71 @@ public class ML implements MouseListener
 	  else
 	  {System.out.println("Я не могу поставить блок");}
 	  РАБОТАЛО*/
-	System.out.println("x="+x+" y="+y);
-	System.out.println(World.getBlock_Metric_Y());
-	System.out.println("real x= "+(((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20));
 	if (canPutBlock==1)
 	    {
 		if (World.getBlock_Metric_Y()>=0)
 		    {
-			blocks.add(new Block(player.getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
+			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
 		    }
 		else
 		    {
-			blocks.add(new Block(player.getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
+			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
 				
 		    }
+		player.getItem().setAmount(-1);
+		if (player.getItem().getAmount()==0)
+		    player.getItem().setItem(0);
 	    }
 	else
 	    {System.out.println("Я не могу поставить блок");}
 	    }
-	else if(player.getItem()>=50 && player.getItem()<60) // Разбивать блоки
+	else if(player.getItem().getItem()>=50 && player.getItem().getItem()<60) // Разбивать блоки
 	    {
 	        
 		for (Block b : blocks)
 		    {
+			
+			if (World.getBlock_Metric_X()>=0)
+			    if(x>(int)player.getPosition().getX()+player.getWidth()*20+60+World.getBlock_Metric_X()
+			       || x< (int)player.getPosition().getX()-40-(20-World.getBlock_Metric_X())
+			       || y< (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
+			       || y> (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
+			       )
+				{
+				    System.out.println("Вне зоны взаимодействия");
+				    canRemoveBlock=0;
+				}
+			
+			if (World.getBlock_Metric_X()<0)
+			    if(x>(int)player.getPosition().getX()+player.getWidth()*20+60+20+World.getBlock_Metric_X()
+			       || x < (int) player.getPosition().getX()-40+World.getBlock_Metric_X()
+			       || y < (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()
+			       || y > (int) player.getPosition().getY()-40+World.getBlock_Metric_Y()+player.getHeight()*20+120
+			       )
+				{
+				    System.out.println("Вне зоны взаимодействия");
+				    canRemoveBlock=0;
+				}
+			
+			
 			if (
 			    x>=(int) b.getPosition().getX()
 			    && x<= (int) b.getPosition().getX()+b.getWidth()
 			    && y >= (int) b.getPosition().getY()
 			    && y <= (int) b.getPosition().getY()+b.getHeight()
+			    && canRemoveBlock==1
 			    )
 			    {
 				System.out.println("Блок удален");
 				blocks.remove(b);
-			        
+				drops.add(new Drop((int) b.getPosition().getX()+b.getWidth()/4,
+						   (int) b.getPosition().getY(),
+						   b.getWidth()/2,
+						   b.getHeight()/2,
+						   b.getType(),
+						   blocks
+						   ));
+				 
 			    }
 			
 			

@@ -3,6 +3,9 @@ package world.players;
 
 import world.Block;
 import world.World;
+import world.Drop;
+import world.interfac.Cell;
+
 import java.awt.image.*;
 import java.awt.Point;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,15 +20,17 @@ public class Player extends Entity
     int jump;
     int vPrijke   = 0;
     int moveRight;
-    int item = 0;
+    Cell item;
     int moveLeft;
     int ostanovka_v_prijke; 
     CopyOnWriteArrayList<Block> blocks;
+    CopyOnWriteArrayList<Drop> drops;
     public Player(Point pos,
 		  BufferedImage[][] img,
 		  int width,
 		  int height, 
-		  CopyOnWriteArrayList<Block> blocks
+		  CopyOnWriteArrayList<Block> blocks,
+		  CopyOnWriteArrayList<Drop> drops
 		  )
     {
 	this.pos=pos;
@@ -33,51 +38,12 @@ public class Player extends Entity
 	this.width=width;
 	this.height=height;
 	this.blocks=blocks;
-	gravitation.start();
+	this.drops=drops;
+	//gravitation.start();
 	t_jump.start();
-	t_moveRight.start();
-	t_moveLeft.start();
+	t_move.start();
     }
-
-    Thread t_moveRight = new Thread(() ->
-				    {
-					while (true)
-					    {
-						if (moveRight==1)
-						    {
-							int move=1;
-							dir = 1;
-							for (Block b : blocks)
-							    {
-					        		if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
-								    ||
-								    (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
-								    ||
-								    (int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
-			
-								    {}
-								else
-								    {
-									if ((int) this.getPosition().getX()+this.getWidth()*20+1>=b.getPosition().getX())
-									    move=0; //Нельзя ходить!
-								    }
-							    }
-							if(move==1)
-							    for (Block b : blocks)
-								{
-								    b.setPosition(-1,0);
-								    stepCount++;
-								    if(stepCount>=3)
-									stepCount=0;
-								}
-						    }
-						try
-						    {
-							Thread.sleep(20);
-						    }
-						catch (Exception ex) {}
-					    }
-				    });
+    /*
     Thread gravitation = new Thread(() ->
 				    {
 				        int speed = 99;
@@ -139,8 +105,8 @@ public class Player extends Entity
 						    }
 					    }
 				    });
-
-    Thread t_moveLeft = new Thread(()->
+    */
+    Thread t_move = new Thread(()->
 				   {
 				       while (true)
 					   {
@@ -158,20 +124,57 @@ public class Player extends Entity
 							       {}
 							   else
 							       {
-								   if ((int) this.getPosition().getX()-1<=b.getPosition().getX()+20)
+								   if ((int) this.getPosition().getX()<=b.getPosition().getX()+20)
 								       move=0; //Нельзя ходить!
 							       }
 
 						       if(move==1)
+							   {
 							   for (Block b : blocks)
 							       {
-								   stepCount++;
 								   b.setPosition(1,0);
-								   if(stepCount>=3)
-								       stepCount=0;
-							       }
+							}
+							   for (Drop d : drops)
+							       d.setPosition(1,0);
+							
+							   }
+						         stepCount++;
+							 if(stepCount>=3)
+							     stepCount=0;
+							       
+								 
 						   }
-					       try
+					       else if (moveRight==1)
+						    {
+							int move=1;
+							dir = 1;
+							for (Block b : blocks)
+							    {
+					        		if ((int) (this.getPosition().getY())>=(int)(b.getPosition().getY())+20
+								    ||
+								    (int) (this.getPosition().getY())+this.getHeight()*20<=(int)(b.getPosition().getY())
+								    ||
+								    (int) (this.getPosition().getX())>=(int) (b.getPosition().getX())+20)
+			
+								    {}
+								else
+								    {
+									if ((int) this.getPosition().getX()+this.getWidth()*20>=b.getPosition().getX())
+									    move=0; //Нельзя ходить!
+								    }
+							    }
+							if(move==1)
+							    {
+								for (Block b : blocks)
+								    b.setPosition(-1,0);
+								for (Drop d : drops)
+								    d.setPosition(-1,0);
+								stepCount++;
+								if(stepCount>=3)
+								    stepCount=0;
+							    }
+						    }
+						try
 						   {
 						       Thread.sleep(20);
 						   }
@@ -197,12 +200,12 @@ public class Player extends Entity
 	jump=i;
     }
 
-    public int getItem()
+    public Cell getItem()
     {
 	return item;
     }
 
-    public void setItem(int item)
+    public void setItem(Cell item)
     {
 	this.item=item;
     }
@@ -218,6 +221,12 @@ public class Player extends Entity
 	if(moveRight==0)
 	    moveLeft=a;
     }
+
+    public int getVPrijke()
+    {
+	return vPrijke;
+    }
+    
     Thread t_jump = new Thread(()->{
 	    while (true)
 		{
@@ -235,9 +244,9 @@ public class Player extends Entity
 				    for(Block b : blocks)
 					{
 					    step=0;
-					    if((int) (pos.getX())>(int) (b.getPosition().getX())+20 //+width
+					    if((int) (pos.getX())>=(int) (b.getPosition().getX())+20 //+width
 					       ||
-					       (int) (pos.getX())+(width*20)<(int) (b.getPosition().getX())
+					       (int) (pos.getX())+(width*20)<=(int) (b.getPosition().getX())
 					       ) //Вне
 						{}
 					    else
@@ -258,11 +267,19 @@ public class Player extends Entity
 						}
 					}
 				    if (ostanovka_v_prijke==0)
-					for(Block b : blocks)
-					    b.setPosition(0,co/7);
+					{
+					    for(Block b : blocks)
+						b.setPosition(0,co/7);
+					    for(Drop d : drops)
+						d.setPosition(0,co/7);
+					}
 				    else
-					for(Block b : blocks)
-					    b.setPosition(0,final_step);
+					{
+					    for(Block b : blocks)
+						b.setPosition(0,final_step);
+					    for(Drop d : drops)
+						d.setPosition(0,final_step);
+					}
 				    try
 					{
 					    Thread.sleep(10);

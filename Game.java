@@ -12,37 +12,39 @@ public class Game {
 
     // TODO
     // Установка блоков в плеера
-    // Объеденить потоки перемещения плеера
-    // Переключение между 2 режимами (ставить и сносить) - прототип инвентаря
     public static void main(String[] args)
     {
 	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();
 	CopyOnWriteArrayList<Cell> inventory = new CopyOnWriteArrayList<>();
+	CopyOnWriteArrayList<Drop> drops = new CopyOnWriteArrayList<>();
 
 	for (int i = 0; i<10; i++)
 	    {
 		Cell cell = new Cell(60+i*60,40,0);
 		if(i==0)
-		    cell.setItem(1);
+		    {
+			cell.setItem(1);
+			cell.setAmount(50);
+		    }
 		if(i==1)
 		    cell.setItem(50);
 		inventory.add(cell);
 	    }
 	
-	blocks.add(new Block (Block.GROUND,200,1340));
+	blocks.add(new Block (ImgCol.GROUND,200,1340));
 	
-	blocks.add(new Block (Block.GROUND,0,1340));
+	blocks.add(new Block (ImgCol.GROUND,0,1340));
 	for (int i=0;i<1000;i+=20)
 	    {
-		blocks.add(new Block (Block.GROUND,i,1360));
+		blocks.add(new Block (ImgCol.GROUND,i,1360));
 	    }
 	JFrame win = new JFrame();
 	//win.setSize(520, 558);
 	Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
 		
-	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, blocks);
+	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, blocks, drops);
         
-	World world = new World(blocks, inventory, player);
+	World world = new World(blocks, inventory, drops, player);
 	win.setContentPane(world);
 
 	// Задаем размер
@@ -52,8 +54,8 @@ public class Game {
 	win.setUndecorated(true);
 	win.setVisible(true);
 	
-	win.addKeyListener(new KL(blocks, player));
-	win.addMouseListener(new ML(blocks, inventory, player, world));
+	win.addKeyListener(new KL(blocks, inventory, player));
+	win.addMouseListener(new ML(blocks, inventory, drops, player, world));
 
 
 	while(true)

@@ -7,9 +7,7 @@ import java.awt.Point;
 
 public class Block
 {
-    
-    public static final int GROUND = 1;
-    
+   
     int type;
     Point pos;
     public Block(int t,int x, int y)
@@ -25,6 +23,11 @@ public class Block
 	
 	return pos;
     }
+
+    public int getType()
+    {
+	return type;
+    }
     
     public void setPosition(int x, int y)
     {
@@ -38,29 +41,16 @@ public class Block
 
     public BufferedImage getImage()
     {
-	return ImgCol.ground;
+	return ImgCol.items[type];
     }
 
     public int getHeight()
     {
-	switch (type)
-	    {
-	    case GROUND:
-		return 20;
-	    default:
-		return 20;
-	    }
+        return 20; 
     }
 
     public int getWidth()
     {
-	switch (type)
-	    {
-	    case GROUND:
-		return 20;
-	    default:
-		return 20;
-	
-	    }
+	return 20;
     }
 }

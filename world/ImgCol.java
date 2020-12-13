@@ -6,11 +6,27 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImgCol {
-    public static final BufferedImage ground;
-    public static final BufferedImage picaxe;
+    public static final int GROUND = 1;
+    public static final int PICAXE = 50;
+    public static final BufferedImage items[] = new BufferedImage[100];
+    public static final BufferedImage numbers[] = new BufferedImage[10];
     public static final BufferedImage[][] player = new BufferedImage[3][2];
 
     static {
+	BufferedImage full_numbers;
+	try {
+	    full_numbers = ImageIO.read(new File("res/numbers.png"));
+	    for(int i=0;i<10;i++)
+	    {
+		numbers[i]=full_numbers.getSubimage(45*i,0,45,60);
+	    }
+	} catch (IOException e)
+	    {
+		  e.printStackTrace();
+		  full_numbers = null;
+	      }
+	
+	
 	BufferedImage _ground;
 	try {
 	    _ground = ImageIO.read(new File("res/ground.jpg"));
@@ -19,7 +35,7 @@ public class ImgCol {
 		  e.printStackTrace();
 		  _ground = null;
 	      }
-	ground = _ground;
+        items[GROUND] = _ground;
 
 	BufferedImage _picaxe;
 	try {
@@ -29,7 +45,7 @@ public class ImgCol {
 		  e.printStackTrace();
 		  _picaxe = null;
 	      }
-	picaxe = _picaxe;
+        items[PICAXE] = _picaxe;
 	
 	BufferedImage player_full;
 	try

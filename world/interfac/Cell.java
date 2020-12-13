@@ -11,14 +11,34 @@ public class Cell
     int x;
     int y;
     int item;
+    int amount;
     boolean chosen = false;
     public Cell (int x, int y, int item)
     {
 	this.x=x;
 	this.y=y;
-	this.item=item;	    
+	this.item=item;
+	
     }
 
+    public int getAmount()
+    {
+	return amount;
+    }
+
+    public boolean getCountable()
+    {
+	boolean c;
+        if (item<50 && item>0)
+	    c = true;
+	else c = false;
+	return c;
+    }
+
+    public void setAmount(int a)
+    {
+	amount+=a;
+    }
     public int getHeight()
     {
 	return height;
@@ -60,20 +80,7 @@ public class Cell
     };
 
     public BufferedImage getItemImage()
-    {
-	BufferedImage res;
-	switch(item)
-	    {
-	    case 50:
-		res = ImgCol.picaxe; // Временно
-		break;
-	    case Block.GROUND:
-	        res =  ImgCol.ground;
-		break;
-	    default:
-	        res = null;
-		break;
-	    }
-	return res;
+    {        
+	return ImgCol.items[item];
     }
 }

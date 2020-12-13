@@ -1,6 +1,11 @@
 <project>
 
-  <target name="build-package-pl">
+  <target name="build-package-utils">
+        <javac destdir="compiled" srcdir="utils/">
+        </javac>
+  </target>
+  
+  <target name="build-package-pl" depends = "build-package-utils">
         <javac destdir="compiled" srcdir="world/players/">
         </javac>
     </target>
