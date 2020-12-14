@@ -10,6 +10,8 @@ import controllers.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 public class Game {
 
+    static CopyOnWriteArrayList<Chunk> chunks = new CopyOnWriteArrayList<>();
+
     // TODO
     // Установка блоков в плеера
     public static void main(String[] args)
@@ -17,7 +19,7 @@ public class Game {
 	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();
 	CopyOnWriteArrayList<Cell> inventory = new CopyOnWriteArrayList<>();
 	CopyOnWriteArrayList<Drop> drops = new CopyOnWriteArrayList<>();
-
+	
 	for (int i = 0; i<10; i++)
 	    {
 		Cell cell = new Cell(60+i*60,40,0);
@@ -69,5 +71,17 @@ public class Game {
 		    {}
 	    }
 	
+    }
+
+    void generateChunks()
+    {
+	for(int x=0;x<3;x++)
+	    {
+		for(int y=0;y<3;y++)
+		    {
+			chunks.add(new Chunk(x,y));
+		    }
+		
+	    }
     }
 }
