@@ -11,8 +11,8 @@ public class ImgCol {
     public static final BufferedImage items[] = new BufferedImage[100];
     public static final BufferedImage numbers[] = new BufferedImage[10];
     public static final BufferedImage[][] player = new BufferedImage[3][2];
-
-    static {
+    public static final BufferedImage background;
+	static {
 	BufferedImage full_numbers;
 	try {
 	    full_numbers = ImageIO.read(new File("res/numbers.png"));
@@ -26,6 +26,17 @@ public class ImgCol {
 		  full_numbers = null;
 	      }
 	
+	
+	BufferedImage _background;
+	try {
+	    _background = ImageIO.read(new File("res/fon.jpg"));
+	} catch (IOException e)
+	    {
+		  e.printStackTrace();
+		  _background = null;
+	      }
+        background = _background;
+
 	
 	BufferedImage _ground;
 	try {

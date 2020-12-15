@@ -2,29 +2,29 @@ package controllers;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import world.World;
-import world.Drop;
+import world.*;
+import utils.GenerateUtil;
 import world.players.Player;
 import world.interfac.Cell;
-import world.Block;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ML implements MouseListener
 {
-    CopyOnWriteArrayList<Block> blocks;
+ 
+    static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Cell> inventory;
     CopyOnWriteArrayList<Drop> drops;
     Player player;
     World world;
-    public ML(CopyOnWriteArrayList<Block> blocks,CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player, World world)
+    public ML(CopyOnWriteArrayList<Chunk> chunks,CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player, World world)
     {
-	this.blocks=blocks;
+	
 	this.player=player;
 	this.drops=drops;
 	this.world = world;
 	this.inventory=inventory;
     }
-
+    
     public void mouseClicked(MouseEvent e) {
 	int canPutBlock = 0;
 	int canRemoveBlock = 1;
@@ -204,11 +204,12 @@ public class ML implements MouseListener
 		if (World.getBlock_Metric_Y()>=0)
 		    {
 			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
+			GenerateUtil.setBlocks(blocks);
 		    }
 		else
 		    {
 			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
-				
+			GenerateUtil.setBlocks(blocks);
 		    }
 		player.getItem().setAmount(-1);
 		if (player.getItem().getAmount()==0)
@@ -256,6 +257,7 @@ public class ML implements MouseListener
 			    {
 				System.out.println("Блок удален");
 				blocks.remove(b);
+				GenerateUtil.setBlocks(blocks);
 				drops.add(new Drop((int) b.getPosition().getX()+b.getWidth()/4,
 						   (int) b.getPosition().getY(),
 						   b.getWidth()/2,
@@ -286,4 +288,9 @@ public class ML implements MouseListener
     public void mouseReleased(MouseEvent e) {
     }
 
+    public static void setBlocks(CopyOnWriteArrayList<Block> blockss)
+    {
+	blocks=blockss;
+    }
+	
 }

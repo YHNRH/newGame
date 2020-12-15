@@ -12,17 +12,26 @@ public class Chunk
     {
 	this.nx=nx;
 	this.ny=ny;
-	for(int x=0; x<200;x+=20)
+	for(int x=0; x<400;x+=20)
 	    {
-		for (int y=0; y<200; y+=20)
+		for (int y=0; y<400; y+=20)
 		    {
-			blocks.add(new Block(
-					     (int)(Math.random()*ny), // Временно
-					     x,
-					     y
-					     ));
+			int forTest = (int)(Math.random()*ny);
+			if (forTest>=1)
+			    {				
+				blocks.add(new Block(
+						     1, // Временно
+						     x+nx*400,
+						     y+ny*400
+						     ));
+			    }
 		    }
 	    }
+    }
+
+    public CopyOnWriteArrayList<Block> getBlocks()
+    {
+	return blocks;
     }
 
     

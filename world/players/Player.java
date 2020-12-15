@@ -1,12 +1,10 @@
 
 package world.players;
 
-import world.Block;
-import world.World;
-import world.Drop;
+import world.*;
 import world.interfac.Cell;
-
 import java.awt.image.*;
+import utils.GenerateUtil;
 import java.awt.Point;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -23,21 +21,23 @@ public class Player extends Entity
     Cell item;
     int moveLeft;
     int ostanovka_v_prijke; 
-    CopyOnWriteArrayList<Block> blocks;
+    CopyOnWriteArrayList<Chunk> chunks;
+    static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Drop> drops;
     public Player(Point pos,
 		  BufferedImage[][] img,
 		  int width,
 		  int height, 
-		  CopyOnWriteArrayList<Block> blocks,
+		  CopyOnWriteArrayList<Chunk> chunks,
 		  CopyOnWriteArrayList<Drop> drops
 		  )
     {
+	
 	this.pos=pos;
 	this.img=img;
 	this.width=width;
 	this.height=height;
-	this.blocks=blocks;
+	this.chunks=chunks;
 	this.drops=drops;
 	//gravitation.start();
 	t_jump.start();
@@ -139,7 +139,7 @@ public class Player extends Entity
 							
 							   }
 						         stepCount++;
-							 if(stepCount>=3)
+							 if(stepCount>=29)
 							     stepCount=0;
 							       
 								 
@@ -170,7 +170,7 @@ public class Player extends Entity
 								for (Drop d : drops)
 								    d.setPosition(-1,0);
 								stepCount++;
-								if(stepCount>=3)
+								if(stepCount>=29)
 								    stepCount=0;
 							    }
 						    }
@@ -179,7 +179,7 @@ public class Player extends Entity
 						       Thread.sleep(20);
 						   }
 					       catch (Exception e)
-						   {}
+						   {System.out.println("EROOR IN PLAYER THREAD MOVE");}
 					   }
 				   });
     public int getFly()
@@ -192,7 +192,7 @@ public class Player extends Entity
     }
     public BufferedImage getImage()
     {
-	return img[stepCount][dir];
+	return img[stepCount/10][dir];
     }
 
     public void setJump(int i)
@@ -203,6 +203,11 @@ public class Player extends Entity
     public Cell getItem()
     {
 	return item;
+    }
+
+    public static void setBlocks(CopyOnWriteArrayList<Block> blockss)
+    {
+	blocks=blockss;
     }
 
     public void setItem(Cell item)
@@ -226,7 +231,7 @@ public class Player extends Entity
     {
 	return vPrijke;
     }
-    
+
     Thread t_jump = new Thread(()->{
 	    while (true)
 		{

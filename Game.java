@@ -10,13 +10,14 @@ import controllers.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 public class Game {
 
-    static CopyOnWriteArrayList<Chunk> chunks = new CopyOnWriteArrayList<>();
-
+    static CopyOnWriteArrayList<Chunk> chunks;
     // TODO
     // Установка блоков в плеера
     public static void main(String[] args)
     {
-	CopyOnWriteArrayList<Block> blocks = new CopyOnWriteArrayList<>();
+        chunks = new CopyOnWriteArrayList<>();
+
+	generateChunks();
 	CopyOnWriteArrayList<Cell> inventory = new CopyOnWriteArrayList<>();
 	CopyOnWriteArrayList<Drop> drops = new CopyOnWriteArrayList<>();
 	
@@ -33,20 +34,13 @@ public class Game {
 		inventory.add(cell);
 	    }
 	
-	blocks.add(new Block (ImgCol.GROUND,200,1340));
 	
-	blocks.add(new Block (ImgCol.GROUND,0,1340));
-	for (int i=0;i<1000;i+=20)
-	    {
-		blocks.add(new Block (ImgCol.GROUND,i,1360));
-	    }
 	JFrame win = new JFrame();
-	//win.setSize(520, 558);
 	Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
 		
-	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, blocks, drops);
+	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, chunks, drops);
         
-	World world = new World(blocks, inventory, drops, player);
+	World world = new World(chunks, inventory, drops, player);
 	win.setContentPane(world);
 
 	// Задаем размер
@@ -56,8 +50,8 @@ public class Game {
 	win.setUndecorated(true);
 	win.setVisible(true);
 	
-	win.addKeyListener(new KL(blocks, inventory, player));
-	win.addMouseListener(new ML(blocks, inventory, drops, player, world));
+	win.addKeyListener(new KL(chunks, inventory, player));
+	win.addMouseListener(new ML(chunks, inventory, drops, player, world));
 
 
 	while(true)
@@ -73,7 +67,7 @@ public class Game {
 	
     }
 
-    void generateChunks()
+    static void generateChunks()
     {
 	for(int x=0;x<3;x++)
 	    {

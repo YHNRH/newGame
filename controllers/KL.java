@@ -1,22 +1,22 @@
 package controllers;
 import java.awt.event.*;
-import world.Block;
-import world.World;
+import world.*;
 import world.players.Player;
 import world.interfac.Cell;
+import utils.GenerateUtil;
 import java.util.concurrent.CopyOnWriteArrayList;
 public class KL implements KeyListener
 {
-    CopyOnWriteArrayList<Block> blocks;
+    static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Cell> inventory;
     Player player;
-    int lastKey = 0;
-    public KL(CopyOnWriteArrayList<Block> blocks, CopyOnWriteArrayList<Cell> inventory, Player player)
+    public KL(CopyOnWriteArrayList<Chunk> chunks, CopyOnWriteArrayList<Cell> inventory, Player player)
     {
-	this.blocks=blocks;
-	this.player=player;
+	
+        this.player=player;
 	this.inventory=inventory;
     }
+
     public void keyPressed(KeyEvent e)
     {
 	int key = e.getKeyCode();
@@ -85,5 +85,11 @@ public class KL implements KeyListener
     public void keyTyped(KeyEvent e)
     {
 
+    }
+
+    
+    public static void setBlocks(CopyOnWriteArrayList<Block> blockss)
+    {
+	blocks=blockss;
     }
 }

@@ -4,13 +4,13 @@ package world;
 import javax.swing.*;
 import java.awt.*;
 import world.interfac.Cell;
-import utils.TextUtil;
+import utils.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import world.players.Player;
 
 public class World extends JPanel
 {
-    CopyOnWriteArrayList<Block> blocks;
+    static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Cell> inventory;
     CopyOnWriteArrayList<Drop> drops;
     Player player;
@@ -22,20 +22,25 @@ public class World extends JPanel
     Color black = new Color(0,0,0,255);
     static int block_metric_x = -20;
     static int block_metric_y;
-    public static Block kostyl_dlya_setki = new Block (ImgCol.GROUND,0,0);
+    Block kostyl_dlya_setki;
     
-    public World (CopyOnWriteArrayList<Block> blocks, CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player)
+    public World (CopyOnWriteArrayList<Chunk> chunks, CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player)
     {
-	this.blocks=blocks;
-	this.player=player;
+	
+        this.player=player;
 	this.inventory=inventory;
 	this.drops=drops;
-	this.blocks.add(kostyl_dlya_setki);
+	kostyl_dlya_setki=GenerateUtil.getKostyl();
 	gravitation.start();
     }
     protected void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
+
+	// Отрисовка фона
+
+	g.drawImage(ImgCol.background,-300,-300,2560,1440, null);
+	
 	// Отрисовка сетки
 	if(block_metric_x<-20)
 	    kostyl_dlya_setki.setPosition(20,0);
@@ -121,7 +126,8 @@ public class World extends JPanel
 	    }
 	// Отрисовка персонажей
 	g.drawImage(player.getImage(),  (int) player.getPosition().getX(), (int) player.getPosition().getY(), player.getWidth()*20, player.getHeight()*20, null);
-	
+
+
     }
 
     public static int getBlock_Metric_X()
@@ -129,13 +135,16 @@ public class World extends JPanel
 	return block_metric_x;
     }
 
+    
+    public static void setBlocks(CopyOnWriteArrayList<Block> blockss)
+    {
+	blocks=blockss;
+    }
+
     public static int getBlock_Metric_Y()
     {
 	return block_metric_y;
     }
-
-
-
 
     Thread gravitation = new Thread(() ->
 				    {
@@ -177,7 +186,7 @@ public class World extends JPanel
 								d.setPosition(0,-final_step);
 							    player.setFly(0);
 							    speed    = 99;
-							    World.kostyl_dlya_setki.setPositionToNol();
+							    kostyl_dlya_setki.setPositionToNol();
 			
 							}
 						    if(gonnaFly==1)
