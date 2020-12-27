@@ -10,7 +10,7 @@ public class KL implements KeyListener
     static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Cell> inventory;
     Player player;
-    public KL(CopyOnWriteArrayList<Chunk> chunks, CopyOnWriteArrayList<Cell> inventory, Player player)
+    public KL( CopyOnWriteArrayList<Cell> inventory, Player player)
     {
 	
         this.player=player;
@@ -20,6 +20,11 @@ public class KL implements KeyListener
     public void keyPressed(KeyEvent e)
     {
 	int key = e.getKeyCode();
+	if (key==8) // BACKSPASE??
+	    {
+		System.out.println("SAVED");
+		GenerateUtil.save();
+	    }
 	if(key == 49) // 1
 	    {
 	        Cell cell = inventory.get(0);
@@ -80,6 +85,13 @@ public class KL implements KeyListener
 	    player.setMoveLeft(0);
 	if(key == 32) // SPACE
 	    player.setJump(0);
+	try{
+	    Thread.sleep(20);
+	}
+	catch (InterruptedException ex)
+	    {
+		System.out.println("Ошибка клавиатуры");
+	    }
     }
 
     public void keyTyped(KeyEvent e)

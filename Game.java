@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import world.*;
+import utils.GenerateUtil;
 import world.interfac.Cell;
 import world.players.*;
 import controllers.*;
@@ -13,11 +14,11 @@ public class Game {
     static CopyOnWriteArrayList<Chunk> chunks;
     // TODO
     // Установка блоков в плеера
+    // Добавить счет пройденного растояния во все стороны(либо сохранять значения костыля ЧТО ПРЕДПОЧТИТЕЛЬНЕЕ)))))))))
+    // 
     public static void main(String[] args)
     {
         chunks = new CopyOnWriteArrayList<>();
-
-	generateChunks();
 	CopyOnWriteArrayList<Cell> inventory = new CopyOnWriteArrayList<>();
 	CopyOnWriteArrayList<Drop> drops = new CopyOnWriteArrayList<>();
 	
@@ -38,9 +39,15 @@ public class Game {
 	JFrame win = new JFrame();
 	Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
 		
-	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, chunks, drops);
-        
-	World world = new World(chunks, inventory, drops, player);
+	
+
+	GenerateUtil gen = new GenerateUtil();
+	Thread t = new Thread(gen);
+	t.start();
+		while (t.isAlive()){}
+	Player player = new Player(new Point ((int)sSize.getWidth()/20*10,(int)sSize.getHeight()/20*10), ImgCol.player,2,3, drops);
+	
+	World world = new World(inventory, drops, player);
 	win.setContentPane(world);
 
 	// Задаем размер
@@ -50,8 +57,8 @@ public class Game {
 	win.setUndecorated(true);
 	win.setVisible(true);
 	
-	win.addKeyListener(new KL(chunks, inventory, player));
-	win.addMouseListener(new ML(chunks, inventory, drops, player, world));
+	win.addKeyListener(new KL(inventory, player));
+	win.addMouseListener(new ML(inventory, drops, player, world));
 
 
 	while(true)
@@ -59,7 +66,7 @@ public class Game {
 		win.repaint();
 		try
 		    {
-			Thread.sleep(5);
+			Thread.sleep(20);
 		    }
 		catch(Exception e)
 		    {}
@@ -67,15 +74,5 @@ public class Game {
 	
     }
 
-    static void generateChunks()
-    {
-	for(int x=0;x<3;x++)
-	    {
-		for(int y=0;y<3;y++)
-		    {
-			chunks.add(new Chunk(x,y));
-		    }
-		
-	    }
-    }
+    
 }

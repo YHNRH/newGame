@@ -12,6 +12,21 @@ public class Chunk
     {
 	this.nx=nx;
 	this.ny=ny;
+	
+    }
+
+    public int getX()
+    {
+	return nx;
+    }
+
+    public int getY()
+    {
+	return ny;
+    }
+
+    public void randomCreation()
+    {
 	for(int x=0; x<400;x+=20)
 	    {
 		for (int y=0; y<400; y+=20)
@@ -27,6 +42,11 @@ public class Chunk
 			    }
 		    }
 	    }
+    }
+
+    public void addBlock(Block b)
+    {
+	blocks.add(b);
     }
 
     public CopyOnWriteArrayList<Block> getBlocks()

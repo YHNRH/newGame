@@ -21,14 +21,12 @@ public class Player extends Entity
     Cell item;
     int moveLeft;
     int ostanovka_v_prijke; 
-    CopyOnWriteArrayList<Chunk> chunks;
     static CopyOnWriteArrayList<Block> blocks;
     CopyOnWriteArrayList<Drop> drops;
     public Player(Point pos,
 		  BufferedImage[][] img,
 		  int width,
 		  int height, 
-		  CopyOnWriteArrayList<Chunk> chunks,
 		  CopyOnWriteArrayList<Drop> drops
 		  )
     {
@@ -37,8 +35,7 @@ public class Player extends Entity
 	this.img=img;
 	this.width=width;
 	this.height=height;
-	this.chunks=chunks;
-	this.drops=drops;
+        this.drops=drops;
 	//gravitation.start();
 	t_jump.start();
 	t_move.start();
@@ -132,10 +129,10 @@ public class Player extends Entity
 							   {
 							   for (Block b : blocks)
 							       {
-								   b.setPosition(1,0);
+								   b.setPosition(3,0);
 							}
 							   for (Drop d : drops)
-							       d.setPosition(1,0);
+							       d.setPosition(3,0);
 							
 							   }
 						         stepCount++;
@@ -166,9 +163,9 @@ public class Player extends Entity
 							if(move==1)
 							    {
 								for (Block b : blocks)
-								    b.setPosition(-1,0);
+								    b.setPosition(-3,0);
 								for (Drop d : drops)
-								    d.setPosition(-1,0);
+								    d.setPosition(-3,0);
 								stepCount++;
 								if(stepCount>=29)
 								    stepCount=0;
@@ -176,7 +173,7 @@ public class Player extends Entity
 						    }
 						try
 						   {
-						       Thread.sleep(20);
+						       Thread.sleep(60);
 						   }
 					       catch (Exception e)
 						   {System.out.println("EROOR IN PLAYER THREAD MOVE");}

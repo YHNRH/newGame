@@ -21,11 +21,29 @@
     </target>
     
     <target name="build" depends="build-package-controllers">
+      <javac srcdir="tests/" destdir="compiled">
+	<classpath>
+	<pathelement path ="junit-4.10.jar"/>
+      </classpath>
+      </javac>
         <javac destdir="compiled" srcdir=".">
         </javac>
     </target>
 
-    <target name="run" depends="build">
+    <target name ="test" depends= "build">
+      <junit printsummary="on"
+	     fork="true"
+	     haltonfailure="yes">
+	<classpath>
+	  <pathelement path ="junit-4.10.jar"/>
+	  <pathelement path ="compiled"/>
+	</classpath>
+	<formatter type="plain"/>
+	<test name="tests.ImgTestUtil"/>
+      </junit>
+    </target>
+
+    <target name="run" depends="test">
         <java classname="Game" classpath="compiled" fork="true">
         </java>
     </target>

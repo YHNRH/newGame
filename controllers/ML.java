@@ -16,7 +16,7 @@ public class ML implements MouseListener
     CopyOnWriteArrayList<Drop> drops;
     Player player;
     World world;
-    public ML(CopyOnWriteArrayList<Chunk> chunks,CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player, World world)
+    public ML(CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player, World world)
     {
 	
 	this.player=player;
@@ -203,13 +203,17 @@ public class ML implements MouseListener
 	    {
 		if (World.getBlock_Metric_Y()>=0)
 		    {
-			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20));
+			Block b = new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(20+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20+20);
+			blocks.add(b);
 			GenerateUtil.setBlocks(blocks);
+			GenerateUtil.addBlockToChunk(b);
 		    }
 		else
 		    {
-			blocks.add(new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20));
+			Block b = new Block(player.getItem().getItem(), ((x+(20-World.getBlock_Metric_X()))/20)*20+World.getBlock_Metric_X()-20,((y-(40+(World.getBlock_Metric_Y())))/20)*20+World.getBlock_Metric_Y()%20-20);
+			blocks.add(b);
 			GenerateUtil.setBlocks(blocks);
+			GenerateUtil.addBlockToChunk(b);
 		    }
 		player.getItem().setAmount(-1);
 		if (player.getItem().getAmount()==0)
@@ -257,6 +261,7 @@ public class ML implements MouseListener
 			    {
 				System.out.println("Блок удален");
 				blocks.remove(b);
+				GenerateUtil.removeBlockFromChunk(b);
 				GenerateUtil.setBlocks(blocks);
 				drops.add(new Drop((int) b.getPosition().getX()+b.getWidth()/4,
 						   (int) b.getPosition().getY(),

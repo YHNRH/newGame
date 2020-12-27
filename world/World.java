@@ -24,7 +24,7 @@ public class World extends JPanel
     static int block_metric_y;
     Block kostyl_dlya_setki;
     
-    public World (CopyOnWriteArrayList<Chunk> chunks, CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player)
+    public World (CopyOnWriteArrayList<Cell> inventory, CopyOnWriteArrayList<Drop> drops, Player player)
     {
 	
         this.player=player;
