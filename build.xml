@@ -19,15 +19,13 @@
         <javac destdir="compiled" srcdir="controllers/">
         </javac>
     </target>
-    
     <target name="build" depends="build-package-controllers">
-      <javac srcdir="tests/" destdir="compiled">
+      
+      <javac srcdir="." destdir="compiled" >
 	<classpath>
 	<pathelement path ="junit-4.10.jar"/>
       </classpath>
-      </javac>
-        <javac destdir="compiled" srcdir=".">
-        </javac>
+	</javac>
     </target>
 
     <target name ="test" depends= "build">
@@ -39,7 +37,7 @@
 	  <pathelement path ="compiled"/>
 	</classpath>
 	<formatter type="plain"/>
-	<test name="tests.ImgTestUtil"/>
+	<test name="ImgTestUtil"/>
       </junit>
     </target>
 
