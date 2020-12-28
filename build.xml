@@ -2,7 +2,7 @@
 
   
     <target name="build">
-      
+      <mkdir dir="compiled"></mkdir>
       <javac srcdir="." destdir="compiled" >
 	<classpath>
 	<pathelement path ="junit-4.10.jar"/>
