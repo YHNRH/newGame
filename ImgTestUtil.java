@@ -3,7 +3,6 @@ import org.junit.Ignore;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import world.ImgCol;
 import java.io.IOException;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;

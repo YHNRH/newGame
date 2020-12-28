@@ -1,6 +1,3 @@
-package world;
-
-import world.Block;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.awt.image.BufferedImage;
 

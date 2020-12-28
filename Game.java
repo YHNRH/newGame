@@ -3,11 +3,6 @@ import java.awt.Point;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import world.*;
-import utils.GenerateUtil;
-import world.interfac.Cell;
-import world.players.*;
-import controllers.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 public class Game {
 

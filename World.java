@@ -1,12 +1,6 @@
-
-package world;
-
 import javax.swing.*;
 import java.awt.*;
-import world.interfac.Cell;
-import utils.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import world.players.Player;
 
 public class World extends JPanel
 {

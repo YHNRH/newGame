@@ -1,6 +1,3 @@
-package utils;
-
-import world.ImgCol;
 import java.awt.Graphics;
 
 public class TextUtil

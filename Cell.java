@@ -1,7 +1,3 @@
-package world.interfac;
-
-import world.ImgCol;
-import world.Block;
 import java.awt.image.BufferedImage;
 
 public class Cell

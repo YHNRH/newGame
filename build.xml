@@ -1,25 +1,7 @@
 <project>
 
-  <target name="build-package-utils">
-        <javac destdir="compiled" srcdir="utils/">
-        </javac>
-  </target>
   
-  <target name="build-package-pl" depends = "build-package-utils">
-        <javac destdir="compiled" srcdir="world/players/">
-        </javac>
-    </target>
-    
-  <target name="build-package-world" depends = "build-package-pl">
-        <javac destdir="compiled" srcdir="world/">
-        </javac>
-    </target>
-
-    <target name="build-package-controllers" depends = "build-package-world">
-        <javac destdir="compiled" srcdir="controllers/">
-        </javac>
-    </target>
-    <target name="build" depends="build-package-controllers">
+    <target name="build">
       
       <javac srcdir="." destdir="compiled" >
 	<classpath>

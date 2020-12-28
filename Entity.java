@@ -1,4 +1,3 @@
-package world.players;
 import java.awt.*;
 import java.awt.image.*;
 class Entity

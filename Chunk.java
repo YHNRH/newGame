@@ -1,6 +1,3 @@
-package world;
-
-
 import java.util.concurrent.CopyOnWriteArrayList;
 public class Chunk
 {

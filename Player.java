@@ -1,10 +1,4 @@
-
-package world.players;
-
-import world.*;
-import world.interfac.Cell;
 import java.awt.image.*;
-import utils.GenerateUtil;
 import java.awt.Point;
 import java.util.concurrent.CopyOnWriteArrayList;
 

@@ -1,8 +1,4 @@
-package world;
-
-
 import java.awt.image.BufferedImage;
-import world.ImgCol;
 import java.awt.Point;
 
 public class Block
